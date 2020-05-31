@@ -1,8 +1,8 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using MediatR;
-using MegaMind.Application.Common.Interfaces;
+using MegaMind.Application;
+using MegaMind.Persistence;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,7 +16,8 @@ namespace MegaMind.WebUI
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+            builder.Services.AddApplication();
+            builder.Services.AddPersistence();
 
             await builder.Build().RunAsync();
         }

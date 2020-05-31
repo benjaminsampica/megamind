@@ -1,5 +1,59 @@
-﻿<h3>InteractiveArea</h3>
+﻿@using MediatR
+@using MegaMind.Application.Stories.Queries
+@using MegaMind.Application.Choices.Utilities
+@inject IMediator _mediator
+@inject NavigationManager NavigationManager
 
-@code {
+<h1>@model.Text</h1>
+<hr />
+@foreach (var choice in model.Choices)
+{
+    <button @onclick="GetConsequences" type="button">@choice.Text</button>
+}
+<button disabled>Ask a Subject Matter Expert</button>
+<hr />
+@FundsRemaining.ToString("C")
+@ClientHappinessPercentage%
 
+@code
+{
+    StoryViewModel model = new StoryViewModel();
+
+    const int MaximumFundsRemaining = 1_000_000;
+    int FundsRemaining;
+    int ClientHappinessPercentage = 100;
+
+    protected override async Task OnInitializedAsync()
+    {
+        model = await _mediator.Send(new GetStoryQuery(1));
+
+        FundsRemaining = MaximumFundsRemaining;
+    }
+
+    private async Task GetConsequences()
+    {
+        CalculateChoiceFailure();
+        if (IsGameOver())
+        {
+            NavigationManager.NavigateTo("GameOver");
+        }
+        else
+        {
+            model = await _mediator.Send(new GetStoryQuery(model.Id + 1));
+        }
+    }
+
+    private void CalculateChoiceFailure()
+    {
+        ClientHappinessPercentage -= ChoiceFailureUtilities.CalculateHappinessFailure(ClientHappinessPercentage);
+
+        FundsRemaining -= ChoiceFailureUtilities.CalculateFundsFailure(MaximumFundsRemaining);
+
+        StateHasChanged();
+    }
+
+    private bool IsGameOver()
+    {
+        return FundsRemaining <= 0 || ClientHappinessPercentage <= 0;
+    }
 }

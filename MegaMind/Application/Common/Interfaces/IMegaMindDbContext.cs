@@ -1,10 +1,11 @@
 ﻿using MegaMind.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace MegaMind.Application.Common.Interfaces
 {
     public interface IMegaMindDbContext
     {
-        DbSet<Choice> Choices { get; set; }
+        IReadOnlyCollection<Story> Stories { get; set; }
+        IReadOnlyCollection<Choice> Choices { get; set; }
     }
 }
