@@ -1,6 +1,7 @@
 ﻿@using MediatR
 @using MegaMind.Application.Stories.Queries
 @using MegaMind.Application.Choices.Utilities
+@using MegaMind.WebUI.UIComponents
 @inject IMediator _mediator
 @inject NavigationManager NavigationManager
 
@@ -8,10 +9,9 @@
 <hr />
 @foreach (var choice in model.Choices)
 {
-    <button @onclick="GetConsequences" type="button">@choice.Text</button>
+    <Button Text="@choice.Text" OnClickCallback="(async () => await GetConsequences())"></Button>
 }
-<button disabled>Ask a Subject Matter Expert</button>
-<hr />
+<Button Text="Ask a Subject Matter Expert" Disabled="true"></Button>
 @FundsRemaining.ToString("C")
 @ClientHappinessPercentage%
 
