@@ -4,7 +4,7 @@ namespace MegaMind.Application.Choices.Utilities
 {
     public class ChoiceFailureUtilities
     {
-        public static int CalculateHappinessFailure(int currentHappinessPercentage)
+        public static int CalculateHappinessFailure()
         {
             var happinessFailurePercentage = new Random().Next(10, 25);
 

@@ -1,7 +1,8 @@
 ﻿@using MediatR
 @using MegaMind.Application.Stories.Queries
 @using MegaMind.Application.Choices.Utilities
-@using MegaMind.WebUI.UIComponents
+@using MegaMind.WebUI.UIComponents.Styling
+
 @inject IMediator _mediator
 @inject NavigationManager NavigationManager
 
@@ -9,9 +10,13 @@
 <hr />
 @foreach (var choice in model.Choices)
 {
-    <Button Text="@choice.Text" OnClickCallback="(async () => await GetConsequences())"></Button>
+    <button @onclick="(async () => await GetConsequencesAsync())" @attributes="@ButtonStyling.Attributes">
+        @choice.Text
+    </button>
 }
-<Button Text="Ask a Subject Matter Expert" Disabled="true"></Button>
+<button @attributes="@ButtonStyling.Attributes" disabled>
+    Ask a Subject Matter Expert
+</button>
 @FundsRemaining.ToString("C")
 @ClientHappinessPercentage%
 
@@ -30,7 +35,7 @@
         FundsRemaining = MaximumFundsRemaining;
     }
 
-    private async Task GetConsequences()
+    private async Task GetConsequencesAsync()
     {
         CalculateChoiceFailure();
         if (IsGameOver())
@@ -45,7 +50,7 @@
 
     private void CalculateChoiceFailure()
     {
-        ClientHappinessPercentage -= ChoiceFailureUtilities.CalculateHappinessFailure(ClientHappinessPercentage);
+        ClientHappinessPercentage -= ChoiceFailureUtilities.CalculateHappinessFailure();
 
         FundsRemaining -= ChoiceFailureUtilities.CalculateFundsFailure(MaximumFundsRemaining);
 

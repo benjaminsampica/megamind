@@ -1,6 +1,36 @@
-﻿@page "/"
+﻿@using Humanizer
+@using MegaMind.WebUI.UIComponents.Styling
+@inject NavigationManager NavigationManager
 
-<h1>Welcome to MegaMind</h1>
+@page "/"
 
-<NavLink href="/Game">Ready to Play? </NavLink>
+<div class="container mx-auto px-4 ">
+    <div class="bg-fixed" style="background-image: url('/images/brain.png')"></div>
+    <h1>REWORD! You're meeting in 5 minutes to begin a series of important decisions regarding the direction of your organization. The meeting consists of the highest levels of management in a top-down, command-and-control organization.</h1>
 
+    The meeting starts in @FiveMinuteTimer.Humanize(2, true)
+    <NavLink @attributes="ButtonStyling.Attributes" href="/Game">Join The Meeting</NavLink>
+</div>
+
+
+@code {
+    private TimeSpan FiveMinuteTimer = new TimeSpan(0, 5, 0);
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CountdownTimerAsync();
+    }
+
+    async Task CountdownTimerAsync()
+    {
+        while (FiveMinuteTimer > new TimeSpan())
+        {
+            int millisecondsPerSecond = 1000;
+            await Task.Delay(millisecondsPerSecond);
+            FiveMinuteTimer = FiveMinuteTimer.Subtract(new TimeSpan(0, 0, 0, 0, millisecondsPerSecond));
+            StateHasChanged();
+        }
+    }
+
+
+}
