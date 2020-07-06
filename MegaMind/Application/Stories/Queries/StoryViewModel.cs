@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace MegaMind.Application.Stories.Queries
 {
-    public class StoryViewModel : IMapFrom<GetStoryDto>
+    public class StoryViewModel : IMapFrom<Story>
     {
         public int Id { get; set; }
         public string Text { get; set; }
@@ -13,7 +13,7 @@ namespace MegaMind.Application.Stories.Queries
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<GetStoryDto, StoryViewModel>();
+            profile.CreateMap<Story, StoryViewModel>();
         }
     }
 }

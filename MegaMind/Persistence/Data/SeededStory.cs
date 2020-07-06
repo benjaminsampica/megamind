@@ -10,14 +10,26 @@ namespace MegaMind.Persistence.Data
             new Story
             {
                 Id = 1,
-                Text = "Story 1",
-                Choices = SeededChoice.SeededChoices
+                Text = "Management says you're over budget and behind schedule - with months still left to release a working product. Management 'asks' you if you can work overtime in order to meet the deadline since you demanded to write 'tests'. How do you respond?",
+                Choices = SeededChoice.StoryOneChoices
             },
             new Story
             {
                 Id = 2,
                 Text = "Story 2",
-                Choices = SeededChoice.SeededChoices
+                Choices = SeededChoice.StoryTwoChoices
+            },
+            new Story
+            {
+                Id = 3,
+                Text = "Story 3",
+                Choices = SeededChoice.StoryThreeChoices
+            },
+            new Story
+            {
+                Id = 4,
+                Text = "Story 3",
+                Choices = SeededChoice.StoryFourChoices
             }
         };
     }

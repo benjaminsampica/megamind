@@ -17,7 +17,7 @@ namespace MegaMind.Common
             Id = id;
             Name = name;
         }
-
+        
         public override string ToString() => Name;
 
         public static IEnumerable<T> GetAll<T>() where T : Enumeration

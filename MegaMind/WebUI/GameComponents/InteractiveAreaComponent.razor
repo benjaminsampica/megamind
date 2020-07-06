@@ -1,7 +1,6 @@
 ﻿@using MediatR
 @using MegaMind.Application.Stories.Queries
 @using MegaMind.Application.Choices.Utilities
-@using MegaMind.WebUI.UIComponents.Styling
 
 @inject IMediator _mediator
 @inject NavigationManager NavigationManager
@@ -10,11 +9,11 @@
 <hr />
 @foreach (var choice in model.Choices)
 {
-    <button @onclick="(async () => await GetConsequencesAsync())" @attributes="@ButtonStyling.Attributes">
+    <button @onclick="(async () => await GetConsequencesAsync())" class="btn btn-outline-primary">
         @choice.Text
     </button>
 }
-<button @attributes="@ButtonStyling.Attributes" disabled>
+<button class="btn btn-outline-primary" disabled>
     Ask a Subject Matter Expert
 </button>
 @FundsRemaining.ToString("C")

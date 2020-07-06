@@ -6,6 +6,5 @@ namespace MegaMind.Application.Common.Interfaces
     public interface IMegaMindDbContext
     {
         IReadOnlyCollection<Story> Stories { get; set; }
-        IReadOnlyCollection<Choice> Choices { get; set; }
     }
 }

@@ -1,16 +1,41 @@
 ﻿@using Humanizer
-@using MegaMind.WebUI.UIComponents.Styling
 @inject NavigationManager NavigationManager
-
 @page "/"
 
-<div class="container mx-auto px-4 ">
-    <div class="bg-fixed" style="background-image: url('/images/brain.png')"></div>
-    <h1>REWORD! You're meeting in 5 minutes to begin a series of important decisions regarding the direction of your organization. The meeting consists of the highest levels of management in a top-down, command-and-control organization.</h1>
+    <div class="vh-100" style="background: url('/images/brain.png') no-repeat center center fixed">
+        <h1>REWORD! You're meeting in 5 minutes to begin a series of important decisions regarding the direction of your organization. The meeting consists of the highest levels of management in a top-down, command-and-control organization.</h1>
 
-    The meeting starts in @FiveMinuteTimer.Humanize(2, true)
-    <NavLink @attributes="ButtonStyling.Attributes" href="/Game">Join The Meeting</NavLink>
-</div>
+        <p>The meeting starts in @FiveMinuteTimer.Humanize(2, true)</p>
+
+        <hr />
+        <h2 class="text-center">Join The Meeting As...</h2>
+        <div class="card-group">
+            <div class="card">
+                <img class="card-img-top" src="..." alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">The Manager</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <NavLink class="btn btn-outline-primary" href="/Game">Begin demanding answers for this product you've only heard of...</NavLink>
+                </div>
+            </div>
+            <div class="card mx-sm-2">
+                <img class="card-img-top" src="..." alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">The Product Owner</h5>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                    <NavLink class="btn btn-outline-primary" href="/Game">Start grooming the backlog for the first time and then run to the meeting...</NavLink>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="..." alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">The Developer</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                    <NavLink class="btn btn-outline-primary" href="/Game">Grab your pen and notepad to appear like you're listening and then walk to the meeting...</NavLink>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 @code {
@@ -23,14 +48,15 @@
 
     async Task CountdownTimerAsync()
     {
-        while (FiveMinuteTimer > new TimeSpan())
+        var zeroSecondTimeSpan = new TimeSpan();
+        while (FiveMinuteTimer > zeroSecondTimeSpan)
         {
             int millisecondsPerSecond = 1000;
             await Task.Delay(millisecondsPerSecond);
             FiveMinuteTimer = FiveMinuteTimer.Subtract(new TimeSpan(0, 0, 0, 0, millisecondsPerSecond));
             StateHasChanged();
         }
+
+        NavigationManager.NavigateTo("GameOver");
     }
-
-
 }

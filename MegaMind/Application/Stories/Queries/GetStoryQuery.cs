@@ -13,12 +13,12 @@ namespace MegaMind.Application.Stories.Queries
 
         private int Id { get; }
 
-        public class GetCustomersListQueryHandler : IRequestHandler<GetStoryQuery, StoryViewModel>
+        public class GetStoryQueryHandler : IRequestHandler<GetStoryQuery, StoryViewModel>
         {
             private readonly IMegaMindDbContext _context;
             private readonly IMapper _mapper;
 
-            public GetCustomersListQueryHandler(IMegaMindDbContext context, IMapper mapper)
+            public GetStoryQueryHandler(IMegaMindDbContext context, IMapper mapper)
             {
                 _context = context;
                 _mapper = mapper;
@@ -26,10 +26,9 @@ namespace MegaMind.Application.Stories.Queries
 
             public async Task<StoryViewModel> Handle(GetStoryQuery request, CancellationToken cancellationToken)
             {
-                var story = _mapper.Map<GetStoryDto>(_context.Stories.Single(s => s.Id == request.Id));
-                var vm = _mapper.Map<StoryViewModel>(story);
+                var viewModel = _mapper.Map<StoryViewModel>(_context.Stories.Single(s => s.Id == request.Id));
 
-                return vm;
+                return viewModel;
             }
         }
     }
